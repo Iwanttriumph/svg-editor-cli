@@ -1,0 +1,30 @@
+@startuml
+title SVG CLI - Phase 1 module dependencies
+skinparam componentStyle rectangle
+skinparam shadowing false
+left to right direction
+component "main\nComposition root" as main
+package "src/cli" {
+  component "Repl / Tokenizer\nCommandDispatcher" as cli
+}
+package "src/application" {
+  component "EditorSession\nEditCommand implementations\nCommandHistory / Snapshot\nDocumentPresenter" as app
+  interface "DocumentStore\nSvgCodec" as ports
+}
+package "src/domain" {
+  component "SvgDocument / ShapeFactory\nShape + six concrete classes" as domain
+}
+package "src/infrastructure" {
+  component "FileDocumentStore\nXmlSvgCodec / UniformTransform" as infra
+}
+main --> cli
+main --> app
+main --> infra
+main --> domain
+cli --> app
+cli --> domain : validation and types
+app --> domain
+app --> ports
+infra ..|> ports
+infra --> domain
+@enduml
