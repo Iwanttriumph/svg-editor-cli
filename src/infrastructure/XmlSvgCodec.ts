@@ -35,8 +35,8 @@ export class XmlSvgCodec implements SvgCodec {
     const presentation: Record<string, string> = {};
     const viewBox = rootAttributes.viewBox?.trim().split(/[\s,]+/u).map(n => Numbers.finite(n, 'viewBox'));
     if (viewBox && (viewBox.length !== 4 || viewBox[0] !== 0 || viewBox[1] !== 0)) throw new EditorError('unsupported SVG viewBox');
-    const width = Numbers.positive((rootAttributes.width ?? String(viewBox?.[2] ?? 800)).replace(/px$/u, ''), 'canvas width');
-    const height = Numbers.positive((rootAttributes.height ?? String(viewBox?.[3] ?? 600)).replace(/px$/u, ''), 'canvas height');
+    const width = Numbers.positive((rootAttributes.width ?? String(viewBox?.[2] ?? 800)).trim().replace(/px$/u, ''), 'canvas width');
+    const height = Numbers.positive((rootAttributes.height ?? String(viewBox?.[3] ?? 600)).trim().replace(/px$/u, ''), 'canvas height');
     if (viewBox && (viewBox[2] !== width || viewBox[3] !== height)) throw new EditorError('SVG viewBox must match canvas dimensions');
     for (const [key, value] of Object.entries(rootAttributes)) {
       if (!['width', 'height', 'viewBox', 'version'].includes(key)) {

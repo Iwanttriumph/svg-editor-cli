@@ -35,7 +35,7 @@ export abstract class Shape {
   }
   importPresentation(name: string, value: string): void {
     if (['fill', 'stroke', 'stroke-width'].includes(name)) this.setAttribute(name, value);
-    else if (['font-size', 'font-family', 'font-weight', 'text-anchor', 'opacity', 'fill-opacity', 'stroke-opacity'].includes(name)) {
+    else if (['font-size', 'font-family', 'font-weight', 'text-anchor', 'fill-opacity', 'stroke-opacity'].includes(name)) {
       if (name === 'font-size' && Numbers.finite(value, name) < 0) throw new EditorError('font-size must be non-negative');
       this.#presentation.set(name, value);
     } else throw new EditorError(`unsupported SVG attribute: ${name}`);

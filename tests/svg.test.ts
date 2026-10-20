@@ -49,7 +49,7 @@ test('malformed XML, duplicates, unsupported elements, attributes and transforms
     '<svg width="100" height="100" viewBox="0 0 200 200"/>', '<html/>',
     '<svg><text id="t"><tspan>nested</tspan></text></svg>',
     '<!DOCTYPE svg [<!ENTITY a "x">]><svg/>', '<svg><g id="g">unexpected</g></svg>',
-    '<svg xmlns="https://example.org"/>',
+    '<svg xmlns="https://example.org"/>', '<svg><g id="g" opacity="0.5"/></svg>',
   ];
   for (const source of sources) assert.throws(() => codec.decode(source), source);
 });
